@@ -1,0 +1,6 @@
+# requirements.txt
+# This PoC stub uses only Python standard library. No external dependencies required.
+# To add real conversion libraries, list them here, for example:
+# python-docx
+# lxml
+# click
