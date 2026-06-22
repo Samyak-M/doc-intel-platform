@@ -1,10 +1,29 @@
 # Document Intelligence Platform - Converter & Rebranding
 
-A proof-of-concept platform for intelligent document format conversion, brand terminology rebranding, and automated document cleanup.
+About
+
+This repository contains a proof-of-concept (PoC) focused on intelligent document conversion and rebranding. The goal is to demonstrate one or two high-value document transformation flows (not to build a full platform): for example, Word -> DITA-XML and/or Word/sample content -> cleaned and rebranded output, followed by a validation summary that highlights quality issues and transformation results.
+
+Key constraints for the PoC:
+
+- Focus on clear, reproducible flows that show business value rather than a full-featured platform or UI.
+- Demonstrate reusable document intelligence services (conversion, terminology replacement, cleanup, validation) with sample inputs and outputs.
+- Provide a concise demo and validation package that others can run from the repository materials alone.
+
+A suggested demo flow:
+
+1. Input: Microsoft Word (.docx) representing a realistic technical or marketing document.
+2. Transform: Convert to DITA-XML (or a standardized XML/HTML format) while applying structure recognition and metadata normalization.
+3. Rebrand/Cleanup: Apply brand terminology mappings and tidy formatting/metadata.
+4. Validate: Produce a validation summary and before/after comparison showing changed terms, structural fixes, and any potential issues requiring human review.
+
+This README documents the repository layout, milestones, and contribution guidelines for the PoC. See PROJECT_CHARTER.md for project-level goals and success criteria.
+
+---
 
 ## Overview
 
-This project demonstrates an end-to-end workflow for transforming documents (Word → DITA-XML or standardized formats) while applying brand terminology rebranding and cleaning up formatting inconsistencies.
+This project demonstrates an end-to-end workflow for transforming documents (Word → DITA-XML or standardized formats) while applying brand terminology rebranding and cleaning up formatting inconsistencies. The emphasis is on delivering a small set of high-impact, well-documented examples and validation evidence.
 
 ### Problem
 
@@ -87,7 +106,7 @@ doc-intel-platform/
 ## Key Areas & Ownership
 
 | Area | Owner | Responsibility |
-|------|-------|-----------------|{
+|------|-------|-----------------|
 | Overall Coordination | Samyak Mukherjee | Scope, timeline, final demo readiness |
 | Workflow & Requirements | [Workflow Lead] | Map real doc workflow, define success |
 | Prototype Build | [Prototype Leads] | Implement conversion and rebranding logic |
