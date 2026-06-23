@@ -1,8 +1,9 @@
 # Document Converter & Rebranding PoC - Project Charter
 
-**Project Owner:** Samyak-M  
+**Project Owner:** Samyak Mukherjee  
 **Timeline:** 22 June – 05 July 2026  
-**Roster:** 7 people (1 owner + 6 members)
+**Roster:** 7 people - [1 owner + 6 members](ROSTER.md)
+
 
 ---
 
@@ -74,10 +75,10 @@ Documentation teams spend significant time manually converting Word documents to
 
 | Milestone | Date | Owner |
 |-----------|------|-------|
-| Charter, repo, roles assigned | Mon 22 June | Samyak-M |
+| Charter, repo, roles assigned | Mon 22 June | Samyak Mukherjee |
 | Sample data locked | Wed 24 June | Curators + Owner |
 | First PoC (end-to-end demo) | Fri 27 June | Builders |
-| Scope frozen | Mon 30 June | Samyak-M |
+| Scope frozen | Mon 30 June | Samyak Mukherjee |
 | Demo package ready | Wed 2 July | All |
 | Full dry-run | Fri 4 July | All |
 | Live presentation | Sun 5 July | All |
