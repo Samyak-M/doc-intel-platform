@@ -1,121 +1,106 @@
-# Team Roster & Role Map
+# Team Roster & Role Assignments
 
-**Project:** Document Intelligence Platform - Converter & Rebranding  
-**Owner:** Samyak Mukherjee (@Samyak-M)  
-**Team Size:** [To be finalized - target 9-10 members including owner]  
-**Status:** Forming  
-
----
-
-## Team Members
-
-| # | Name | Role | GitHub Handle | Responsibilities | Status |
-|---|------|------|---|---|---|
-| 1 | Samyak Mukherjee | Project Owner | @Samyak-M | Scope, coordination, decisions, final demo readiness | ✓ Confirmed |
-| 2 | [Name] | Workflow / Domain Lead | [@handle] | Map real documentation workflow, define success | Pending |
-| 3 | [Name] | Workflow / Domain Lead | [@handle] | Map real documentation workflow, define success | Pending |
-| 4 | [Name] | Prototype Builder | [@handle] | Implement conversion and rebranding logic | Pending |
-| 5 | [Name] | Prototype Builder | [@handle] | Implement conversion and rebranding logic | Pending |
-| 6 | [Name] | Prototype Builder | [@handle] | Implement conversion and rebranding logic | Pending |
-| 7 | [Name] | Content & Data Curator | [@handle] | Collect sample inputs, define expected outputs | Pending |
-| 8 | [Name] | Content & Data Curator | [@handle] | Collect sample inputs, define expected outputs | Pending |
-| 9 | [Name] | Validation / QA Lead | [@handle] | Test scenarios, identify gaps, validate usefulness | Pending |
-| 10 | [Name] | Demo & Documentation Lead | [@handle] | Demo storyline, screenshots, usage guide | Pending |
+**Project:** Document Converter & Rebranding PoC  
+**Owner:** Samyak-M (Technical Writer)  
+**Total Team:** 7 (1 owner + 6 members)  
+**Date Assigned:** 21 June 2026
 
 ---
 
-## Role Descriptions
+## Team Members & Roles
 
-### Project Owner (1)
-- **Owner:** Samyak Mukherjee
-- **Responsibilities:**
-  - Maintain project scope and charter
-  - Make final project-level decisions
-  - Remove blockers and keep team focused on PoC
-  - Protect team from scope creep
-  - Prepare final demo narrative and readiness
-  - Keep repository organized and up-to-date
-
-### Workflow / Domain Leads (2)
-- **Responsibilities:**
-  - Map the real documentation workflow end-to-end
-  - Identify pain points in current processes
-  - Define what "good output" looks like
-  - Create input/output examples
-  - Set success criteria with the team
-  - Validate that PoC solves real problems
-
-### Prototype Builders (2-3)
-- **Responsibilities:**
-  - Implement core conversion logic (format conversion, rebranding)
-  - Choose tools, scripts, libraries, or APIs
-  - Build the working PoC end-to-end
-  - Integrate workflow steps together
-  - Troubleshoot technical blockers
-  - Document code and configuration
-
-### Content & Data Curators (1-2)
-- **Responsibilities:**
-  - Collect representative sample documents
-  - Create realistic test inputs
-  - Define expected outputs for samples
-  - Build brand terminology mapping file
-  - Gather real-world document examples
-  - Prepare sample data for demo
-
-### Validation / QA Leads (1-2)
-- **Responsibilities:**
-  - Design test scenarios and edge cases
-  - Test PoC against samples
-  - Document what works and what fails
-  - Identify risks and limitations
-  - Validate output quality
-  - Record validation results
-
-### Demo & Documentation Lead (1)
-- **Responsibilities:**
-  - Prepare demo narrative (problem → solution → results)
-  - Create before/after screenshots and examples
-  - Write usage guide and reproduction steps
-  - Prepare demo script and talking points
-  - Document limitations and learnings
-  - Ensure anyone can follow the repo and run the demo
+### Owner
+| Name | Role | Responsibilities |
+|------|------|------------------|
+| **Samyak-M** | Project Owner & Coordinator | Overall timeline, scope management, blocker removal, demo rehearsal |
 
 ---
 
-## Communication & Availability
+### Workflow & Domain Leads (2)
 
-- **Meeting Rhythm:** [To be agreed by team]
-- **Time Zone Considerations:** [Document as team forms]
-- **Async Updates Location:** `/docs/meetings/` in repository
-- **Blockers:** Post as Issues in the repository
-- **Decisions:** Capture in `/docs/decisions/` within 24 hours
+| Name | Role | Key Deliverables |
+|------|------|------------------|
+| **Anshita Dhawan** | Workflow Lead #1 | Map real doc transformation workflow; define DITA structure requirements |
+| **Jayasree Nishanth** | Domain Lead #2 | Define quality criteria; validate conversion accuracy; create validation checklist |
 
----
-
-## Approval Checklist
-
-- [ ] All 9-10 team members confirmed
-- [ ] Each member has reviewed their role
-- [ ] GitHub handles verified and accessible
-- [ ] Team availability/time zone considerations discussed
-- [ ] Meeting rhythm agreed upon
-- [ ] All members have access to repository
-- [ ] Members have read PROJECT_CHARTER.md and README.md
+**What they own:**
+- `/docs/workflow-map.md` — Input → conversion → review → output flow diagram
+- `/docs/quality-criteria.md` — Checklist for "good output" (metadata, formatting, structure)
+- `/docs/assumptions.md` — Document how headings, tables, images, metadata should map
+- Kickoff facilitation: Review charter, confirm scope with team
 
 ---
 
-## Team Formation Timeline
+### Prototype Builders (2)
 
-| Date | Action | Owner | Status |
-|------|--------|-------|--------|
-| Sun, 21 Jun | Owner (Samyak) confirmed | Samyak | ✓ |
-| Mon, 22 Jun | Final roster published | Samyak | Pending |
-| Mon, 22 Jun | Team members confirm availability | All | Pending |
-| Mon, 22 Jun | First working session | Samyak | Pending |
-| Ongoing | Keep roster current | Samyak | Pending |
+| Name | Role | Key Deliverables |
+|------|------|------------------|
+| **Sanjeev Patra** | Builder #1 – Converter | Build Word → DITA parser; handle python-docx integration |
+| **Shashi Prabha** | Builder #2 – Rebranding | Build rebranding engine; create terminology mapping logic; write validation script |
+
+**What they own:**
+- `/prototype/converter.py` — Word .docx → DITA-XML conversion logic
+- `/prototype/rebranding-engine.py` — Brand terminology search-replace with JSON mapping
+- `/prototype/validation-script.sh` — Automated test runner
+- Use **Cursor IDE + Claude skills** for rapid iteration
+- Weekly code review with Owner
 
 ---
 
-**Last Updated:** 22 June 2026  
-**Next Review:** Mon, 22 Jun 2026 (roster finalization)
+### Content & Data Curator (1)
+
+| Name | Role | Key Deliverables |
+|------|------|------------------|
+| **Sirisha Dabiru** | Content Curator | Collect realistic sample Word docs; create expected DITA outputs; validate data quality |
+
+**What they own:**
+- `/sample-data/input/` — 2–3 Word documents (simple, complex, branded)
+- `/sample-data/expected-output/` — Hand-curated expected DITA-XML for each sample
+- `/docs/sample-metadata.md` — Metadata, complexity notes for each sample
+- Coordinate with Domain Leads on output structure
+- **By Wed 24 June:** Samples locked and committed to repo
+
+---
+
+### Validation & QA Lead (1)
+
+| Name | Role | Key Deliverables |
+|------|------|------------------|
+| **Dinil** | QA & Validation Lead | Test converter on all samples; document pass/fail; identify edge cases |
+
+**What they own:**
+- `/validation/test-results.md` — Test matrix (input → output → expected → pass/fail)
+- `/validation/edge-cases.md` — Converter fails on [X], workaround is [Y]
+- `/validation/test-summary.md` — Overall quality score and blockers
+- Create test matrix by Wed 24 June
+- Run comprehensive tests by Mon 30 June
+- Present validation findings in final demo
+
+---
+
+## Role Rotation Backup
+
+In case of absence:
+
+- **Anshita** (Workflow Lead) ← Jayasree backup
+- **Jayasree** (Domain Lead) ← Anshita backup
+- **Sanjeev** (Converter Builder) ← Shashi backup
+- **Shashi** (Rebranding Builder) ← Sanjeev backup
+- **Sirisha** (Content Curator) ← Owner can backfill for short-term
+- **Dinil** (QA) ← Owner can backfill for short-term
+
+---
+
+## Weekly Check-In Schedule
+
+- **Mon 22, Wed 24, Fri 27, Mon 30, Wed 2, Fri 4** — 15-min standup (9:00–9:15 AM)
+- **Owner + Builders** — Code review + blocker removal (Thu 25, Thu 2)
+- **Full team** — Final rehearsal (Fri 4)
+
+---
+
+## Status
+
+- [x] Roster assigned
+- [ ] Each member confirms role + availability (by EOB Tue 23 June)
+- [ ] Kickoff meeting scheduled (Tue/Wed 23–24 June)

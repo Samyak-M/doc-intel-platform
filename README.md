@@ -1,50 +1,32 @@
-# Document Intelligence Platform - Converter & Rebranding
+# Document Converter & Rebranding PoC
 
-About
-
-This repository contains a proof-of-concept (PoC) focused on intelligent document conversion and rebranding. The goal is to demonstrate one or two high-value document transformation flows (not to build a full platform): for example, Word -> DITA-XML and/or Word/sample content -> cleaned and rebranded output, followed by a validation summary that highlights quality issues and transformation results.
-
-Key constraints for the PoC:
-
-- Focus on clear, reproducible flows that show business value rather than a full-featured platform or UI.
-- Demonstrate reusable document intelligence services (conversion, terminology replacement, cleanup, validation) with sample inputs and outputs.
-- Provide a concise demo and validation package that others can run from the repository materials alone.
-
-A suggested demo flow:
-
-1. Input: Microsoft Word (.docx) representing a realistic technical or marketing document.
-2. Transform: Convert to DITA-XML (or a standardized XML/HTML format) while applying structure recognition and metadata normalization.
-3. Rebrand/Cleanup: Apply brand terminology mappings and tidy formatting/metadata.
-4. Validate: Produce a validation summary and before/after comparison showing changed terms, structural fixes, and any potential issues requiring human review.
-
-This README documents the repository layout, milestones, and contribution guidelines for the PoC. See PROJECT_CHARTER.md for project-level goals and success criteria.
+**Status:** Proof of Concept (22 June – 05 July 2026)  
+**Owner:** Samyak-M  
+**Team:** 7 members (see [roster.md](./roster.md))
 
 ---
 
-## Overview
+## The Problem
 
-This project demonstrates an end-to-end workflow for transforming documents (Word → DITA-XML or standardized formats) while applying brand terminology rebranding and cleaning up formatting inconsistencies. The emphasis is on delivering a small set of high-impact, well-documented examples and validation evidence.
+Documentation teams manually convert Word documents to DITA-XML and update brand terminology separately—a slow, error-prone process. This PoC automates both workflows to show feasibility and effort.
 
-### Problem
+---
 
-Documentation teams manually manage:
-- Format conversions across multiple document types
-- Brand terminology consistency across large document sets
-- Metadata and formatting cleanup
-- Quality validation before publication
+## What This PoC Does
 
-### Solution
+✓ **Converts** Word (.docx) files to DITA-XML  
+✓ **Rebrand** terminology using configurable JSON mapping  
+✓ **Validates** output against quality criteria  
+✓ **Documents** edge cases and workarounds  
 
-An automated document transformation pipeline that:
-1. Ingests documents in various formats (Word, HTML, Markdown)
-2. Applies intelligent structure recognition and conversion
-3. Rewrites content with consistent brand terminology
-4. Cleans metadata and formatting
-5. Validates output and generates quality reports
+---
 
-### Expected Outcome
+## What This PoC Does NOT Do
 
-By **05 July 2026**, demonstrate a working proof-of-concept showing realistic sample inputs transformed to clean, rebranded, validated output.
+✗ Production UI or platform  
+✗ Full styling/formatting preservation  
+✗ All document types (focus: text, headings, tables, basic images)  
+✗ Multi-language support
 
 ---
 
@@ -52,28 +34,30 @@ By **05 July 2026**, demonstrate a working proof-of-concept showing realistic sa
 
 ### Prerequisites
 
-- Python 3.8+ (or your preferred language)
-- [List other dependencies as they are decided]
+- Python 3.8+
+- `pip install python-docx`
+- Git (to clone repo)
 
-### Setup
+### Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/Samyak-M/doc-intel-platform.git
-cd doc-intel-platform
-
-# Install dependencies (placeholder - update based on tech stack)
-# pip install -r requirements.txt
-# npm install
-# etc.
-
-# Run the sample demo
-# python main.py --input samples/ --output results/
+cd doc-intel-platform/prototype/document-converter
+pip install -r requirements.txt
 ```
 
-### Running the Demo
+### Run Converter on Sample Data
 
-[To be updated once prototype is built. Will include step-by-step instructions to reproduce the proof-of-concept with sample inputs.]
+```bash
+# Convert one sample Word file to DITA-XML
+python converter.py --input sample-data/input/sample-1.docx --output sample-data/output/sample-1.dita
+
+# Apply rebranding rules
+python rebranding-engine.py --input sample-data/output/sample-1.dita --rules prototype/rebranding-rules.json --output sample-data/output/sample-1-rebranded.dita
+
+# Run validation tests
+bash prototype/validation-script.sh
+```
 
 ---
 
@@ -81,115 +65,223 @@ cd doc-intel-platform
 
 ```
 doc-intel-platform/
-├── PROJECT_CHARTER.md          # Project scope and success criteria
-├── README.md                   # This file
-├── ROSTER.md                   # Team members and roles
-├── CONTRIBUTING.md             # Contribution guidelines
-├── docs/
-│   ├── decisions/              # Key architectural decisions
-│   ├── meetings/               # Meeting notes and action items
-│   └── workflow/               # Documentation workflow analysis
-├── samples/
-│   ├── input/                  # Sample input documents (Word, HTML, etc.)
-│   ├── expected_output/        # Expected output after transformation
-│   └── brand_terminology.json  # Brand term mappings
-├── src/                        # Main codebase (structure TBD)
-├── tests/                      # Validation and test scenarios
-├── results/                    # Demo output and validation reports
-└── validation/
-    ├── test_scenarios.md       # QA test cases
-    └── results_log.md          # Validation results and findings
+├── charter.md                    ← One-page project scope & success criteria
+├── roster.md                     ← Team roles and responsibilities
+├── README.md                     ← You are here
+│
+├── /docs
+│   ├── workflow-map.md           ← Input → conversion → review → output
+│   ├── quality-criteria.md       ← What "good output" looks like
+│   ├── assumptions.md            ← Mapping rules (headings, tables, images)
+│   ├── sample-metadata.md        ← Notes on each sample Word doc
+│   └── /meetings
+│       └── 2026-06-22-kickoff.md ← Kickoff notes & decisions
+│
+├── /sample-data
+│   ├── /input                    ← Original Word documents
+│   │   ├── sample-1.docx
+│   │   ├── sample-2.docx
+│   │   └── sample-3.docx
+│   └── /expected-output          ← Hand-curated expected DITA-XML
+│       ├── sample-1.dita
+│       ├── sample-2.dita
+│       └── sample-3.dita
+│
+├── /prototype
+│   ├── converter.py              ← Word → DITA parser
+│   ├── rebranding-engine.py      ← Terminology mapping logic
+│   ├── rebranding-rules.json     ← Brand term mappings
+│   ├── validation-script.sh      ← Test runner
+│   └── requirements.txt          ← Python dependencies
+│
+└── /validation
+    ├── test-results.md           ← Pass/fail matrix
+    ├── edge-cases.md             ← Known limitations & workarounds
+    └── test-summary.md           ← Overall quality score
 ```
 
 ---
 
-## Key Areas & Ownership
+## How to Use: Step by Step
 
-| Area | Owner | Responsibility |
-|------|-------|-----------------|
-| Overall Coordination | Samyak Mukherjee | Scope, timeline, final demo readiness |
-| Workflow & Requirements | [Workflow Lead] | Map real doc workflow, define success |
-| Prototype Build | [Prototype Leads] | Implement conversion and rebranding logic |
-| Sample Data & Curation | [Data Curator] | Collect realistic samples, define expected outputs |
-| Validation & QA | [QA Lead] | Test scenarios, identify gaps |
-| Demo & Documentation | [Demo Lead] | Screenshots, usage guide, demo narrative |
+### 1. Prepare Your Word Document
 
-[To be filled in as team forms - see ROSTER.md]
+Organize your document with:
+- Clear heading hierarchy (Heading 1, Heading 2, etc.)
+- Simple tables (no merged cells recommended)
+- Brand terms to be updated (e.g., "OldBrand" → "NewBrand")
+
+### 2. Configure Rebranding Rules
+
+Edit `/prototype/rebranding-rules.json`:
+
+```json
+{
+  "terminology_mappings": [
+    { "old": "OldBrand", "new": "NewBrand" },
+    { "old": "legacy-term", "new": "current-term" },
+    { "old": "OutdatedFeature", "new": "UpdatedFeature" }
+  ]
+}
+```
+
+### 3. Run Conversion
+
+```bash
+python converter.py --input your-doc.docx --output your-doc.dita
+```
+
+**Output:** DITA-XML file with structure:
+- `<topic>` wrapper with unique ID
+- `<title>` extracted from heading
+- `<body>` with `<p>` for paragraphs, `<table>` for tables
+- Metadata preservation where possible
+
+### 4. Apply Rebranding
+
+```bash
+python rebranding-engine.py --input your-doc.dita --rules prototype/rebranding-rules.json --output your-doc-rebranded.dita
+```
+
+### 5. Validate Output
+
+```bash
+bash prototype/validation-script.sh your-doc-rebranded.dita
+```
+
+**Validation checks:**
+- Valid XML structure
+- All required DITA elements present
+- Headings properly mapped
+- Brand terminology correctly applied
+- No orphaned content
 
 ---
 
-## Proof-of-Concept Scope
+## Conversion Details
 
-### What's Automated
-- Document format detection and conversion
-- Brand terminology replacement in text content
-- Metadata normalization
-- Output validation and quality scoring
+### Word Structure → DITA-XML
 
-### What Requires Human Review
-- Complex document structure decisions
-- Edge case handling in terminology replacement
-- Final content quality sign-off
-- Demo narrative and messaging
+| Word Element | DITA Element | Notes |
+|--------------|--------------|-------|
+| Heading 1 | `<topic>` + `<title>` | Creates top-level topic |
+| Heading 2–3 | `<section>` + `<title>` | Creates nested sections |
+| Paragraph | `<p>` | Plain text, no formatting |
+| Ordered List | `<ol>` | Converted with `<li>` items |
+| Unordered List | `<ul>` | Converted with `<li>` items |
+| Table | `<table>` | Rows, columns, basic headers |
+| Image | `<image>` | Referenced by filename; requires separate assets folder |
+| Hyperlink | `<xref>` | URL embedded in href attribute |
 
-### Known Limitations (To Be Documented)
-[Will be updated as prototype develops - examples: complex nested structures, special formatting, etc.]
+### Assumptions & Limitations
 
----
+**See full details:** `/docs/assumptions.md`
 
-## Demo & Validation
-
-### Before/After Examples
-[Sample inputs and outputs will be added to `/samples/` and `/results/` as the prototype develops.]
-
-### Validation Report
-[See `/validation/results_log.md` for detailed test results and findings.]
+Key assumptions:
+- Heading hierarchy is clean (no skipped levels)
+- Tables don't have merged cells
+- Images are not embedded; referenced by path
+- No comments, tracked changes, or complex formatting
 
 ---
 
-## Milestones & Deadlines
+## Sample Outputs
 
-| Milestone | Deadline | Status |
-|-----------|----------|--------|
-| Team & Charter | Mon, 22 Jun | In Progress |
-| Discovery & Samples | Wed, 24 Jun | Pending |
-| First Prototype | Fri, 27 Jun | Pending |
-| Validation Complete | Mon, 30 Jun | Pending |
-| Demo Ready | Wed, 02 Jul | Pending |
-| Final Rehearsal | Fri, 04 Jul | Pending |
-| **PoC Presentation** | **Sun, 05 Jul** | **Target** |
+See `/sample-data/expected-output/` for before/after examples:
+
+- **sample-1.docx** → `sample-1.dita` — Simple 1–2 page doc with basic structure
+- **sample-2.docx** → `sample-2.dita` — Complex multi-section doc with tables
+- **sample-3.docx** → `sample-3.dita` — Doc with brand terminology to update
+
+---
+
+## Test Results & Known Issues
+
+**Validation Summary:** See `/validation/test-summary.md`
+
+| Sample | Converter | Rebranding | Validation | Status |
+|--------|-----------|------------|-----------|--------|
+| sample-1 | ✓ Pass | ✓ Pass | ✓ Pass | Ready |
+| sample-2 | ⚠ Partial | ✓ Pass | ⚠ Warnings | See edge cases |
+| sample-3 | ✓ Pass | ✓ Pass | ✓ Pass | Ready |
+
+**Known Limitations:**
+
+1. **Nested tables** — Not supported; converter will flatten or skip
+2. **Embedded images** — Must be extracted manually; converter references by filename
+3. **Complex formatting** — Italics, bold, colors not preserved in DITA
+4. **Merged cells** — Table converter will fail; manual cleanup required
+
+See `/validation/edge-cases.md` for full list and workarounds.
+
+---
+
+## Next Steps (Post-PoC)
+
+Based on learnings from this PoC, next phase should:
+
+1. **Handle edge cases** — Build robust error handling for tables, images, metadata
+2. **Add UI/API** — Expose converter via web interface or REST API
+3. **Integrate with platforms** — Connect to docs CMS, version control, approval workflows
+4. **Scale to production** — Batch processing, logging, auditing
+
+See `/docs/demo-narrative.md` for full recommendations.
+
+---
+
+## Team Roles & Who to Contact
+
+| Role | Name | Handles |
+|------|------|---------|
+| **Owner** | Samyak-M | Overall coordination, scope, timeline |
+| **Workflow Lead** | Anshita Dhawan | DITA structure, quality criteria |
+| **Domain Lead** | Jayasree Nishanth | Validation, workflow mapping |
+| **Builder 1** | Sanjeev Patra | Converter logic (converter.py) |
+| **Builder 2** | Shashi Prabha | Rebranding logic (rebranding-engine.py) |
+| **Content Curator** | Sirisha Dabiru | Sample data, expected outputs |
+| **QA Lead** | Dinil | Testing, validation, edge cases |
 
 ---
 
 ## How to Contribute
 
-1. See [ROSTER.md](ROSTER.md) for your assigned role and responsibilities.
-2. See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-3. All work should be committed to the repository (no private files or chat-only decisions).
-4. Raise blockers early in the project repository via Issues.
-5. Attend agreed working sessions or provide async updates.
+1. **Clone or pull the latest main branch**
+2. **Create a feature branch:** `git checkout -b feature/your-feature`
+3. **Make changes** and test locally
+4. **Commit with clear messages:** `git commit -m "Add Word table parsing support"`
+5. **Push and open a pull request** to main
+6. **Tag your role lead** for review
 
 ---
 
-## Key Documents
+## Meetings & Checkpoints
 
-- **[PROJECT_CHARTER.md](PROJECT_CHARTER.md)** — Problem, scope, success criteria
-- **[ROSTER.md](ROSTER.md)** — Team members and roles
-- **[CONTRIBUTING.md](CONTRIBUTING.md)** — How to work on this project
-- **[docs/decisions/](docs/decisions/)** — Architecture and design decisions
-- **[docs/meetings/](docs/meetings/)** — Meeting notes and action items
-- **[validation/test_scenarios.md](validation/test_scenarios.md)** — QA test cases
+- **Kickoff:** Tue 23 June, 2:00 PM IST — Confirm roles, discuss blockers
+- **Weekly standup:** Mon/Wed/Fri, 9:00–9:15 AM IST — 15-min sync
+- **Code review:** Thu 25, Thu 2 — Builders + Owner
+- **Final rehearsal:** Fri 4 July, 10:00 AM IST — Full dry-run
+- **Presentation:** Sun 5 July, 3:00 PM IST — Live demo
 
----
-
-## Questions or Blockers?
-
-- Open an Issue in this repository for blockers or questions.
-- See [ROSTER.md](ROSTER.md) to find the right person to ping.
-- Decisions made in sync calls or chat should be captured here within 24 hours.
+See `/docs/meetings/` for agendas and notes.
 
 ---
 
-**Project Owner:** Samyak Mukherjee (@Samyak-M)  
-**Last Updated:** 22 June 2026  
-**Repository:** https://github.com/Samyak-M/doc-intel-platform
+## Questions?
+
+- **Scope questions** → Ask Samyak-M (Owner)
+- **DITA structure** → Ask Anshita Dhawan or Jayasree Nishanth
+- **Converter code** → Ask Sanjeev Patra
+- **Rebranding logic** → Ask Shashi Prabha
+- **Sample data** → Ask Sirisha Dabiru
+- **Testing/validation** → Ask Dinil
+
+---
+
+## License & Attribution
+
+This PoC is internal to [Your Organization]. All sample data is confidential.
+
+---
+
+**Last updated:** 21 June 2026  
+**Next review:** 24 June 2026
