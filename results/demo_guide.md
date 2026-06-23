@@ -1,68 +1,67 @@
-# Demo Guide: Running the PoC demo
+# Demo Guide: Local PoC Run
 
-This guide shows the minimum steps to run the proof-of-concept demo included in this repository. The PoC intentionally targets a minimal, reproducible pipeline that demonstrates document ingestion, simple transformation, brand-term replacement, and a basic validation summary.
+This guide is for a quick local demonstration by the build team. For an executive walkthrough, use `LEADER-DEMO-GUIDE.md`.
 
-Prerequisites
+## Goal
 
-- Python 3.8+ installed and on your PATH
-- (Optional) A virtual environment is recommended
+Show that one Word document can move through the complete pipeline:
 
-Quick setup
+1. Word `.docx` input
+2. DITA-XML conversion
+3. Brand terminology update
+4. Validation result
+
+## Setup
+
+Run from the repo root:
 
 ```bash
-# from repo root
 python -m venv .venv
-source .venv/bin/activate   # macOS/Linux
-.\.venv\Scripts\activate  # Windows PowerShell
-
-# Install dependencies (none required for this stub; this file contains notes)
-pip install -r requirements.txt
 ```
 
-Prepare sample inputs
-
-- Place at least one input file in `samples/input/`. The demo accepts text, Markdown, and HTML files and will create simple placeholder outputs for binary formats like .docx.
-- Example files:
-  - `samples/input/sample-001.md`
-  - `samples/input/sample-002.html`
-
-Brand terminology file
-
-- Default: `samples/brand_terminology.json`
-- Edit this file to add mappings that will be applied during the rebranding step.
-
-Run the demo
+Activate the environment:
 
 ```bash
-python src/main.py --input samples/input --output results --terms samples/brand_terminology.json
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+
+# Git Bash, macOS, or Linux
+source .venv/Scripts/activate
 ```
 
-What this script does (minimal stub)
+Install dependencies:
 
-1. Scans `samples/input/` for files.
-2. For text-based files (.md, .txt, .html): reads content, applies brand-term replacements, and writes a transformed file to `results/demo_output/` (XML/HTML placeholder).
-3. For binary files (example: .docx): creates a small placeholder XML noting the source filename in `results/demo_output/`.
-4. Produces a `results/validation_summary.md` that lists processed files, how many replacements were applied, and basic notes on the transformation.
-5. Copies original/after files into `results/before_after/` for quick comparison.
+```bash
+pip install -r prototype/requirements.txt
+```
 
-Output layout
+## Run the Demo Pipeline
 
-- `results/demo_output/` — transformed output files (placeholders for PoC)
-- `results/before_after/` — original and after files for manual inspection
-- `results/validation_summary.md` — short validation report and transformation notes
+```bash
+python prototype/converter.py --input sample-data/input/Gmail_Installation_Guide.docx --output sample-data/output/out.dita
+python prototype/rebranding-engine.py --input sample-data/output/out.dita --rules prototype/rebranding-rules.json --output sample-data/output/out-rebranded.dita
+bash prototype/validation-script.sh -f sample-data/output/out-rebranded.dita
+```
 
-How to validate
+## What to Show
 
-- Open `results/validation_summary.md` to see which files were processed and which terms changed.
-- Inspect `results/before_after/` to confirm replacements or structural changes.
+- Input: `sample-data/input/Gmail_Installation_Guide.docx`
+- Converted output: `sample-data/output/out.dita`
+- Rebranded output: `sample-data/output/out-rebranded.dita`
+- Validation criteria: `docs/quality-criteria.md`
+- Expected output reference: `sample-data/expected_output/gmail-guide-expected.dita`
 
-Next steps to evolve this PoC
+## Talk Track
 
-- Replace the placeholder conversion logic with a real converter (e.g., python-docx → DITA-XML) in `src/`.
-- Add unit tests in `tests/` and validation rules in `validation/`.
-- Expand the validation report to include structural checks and XML schema validation.
+- "This PoC automates a manual documentation migration workflow."
+- "The converter creates DITA-XML from a Word document."
+- "The rebranding engine applies controlled terminology changes from JSON rules."
+- "The validation script gives the team a repeatable quality gate."
+- "The current scope is a PoC, not a production migration platform."
 
----
+## Demo Exit Criteria
 
-Owner: Demo & Documentation Lead
-Last updated: 22 June 2026
+- The final DITA file exists.
+- Rebranded terms are visible in the output.
+- Validation returns PASS, PASS with warnings, or a clear FAIL.
+- Any limitation is explained using `docs/quality-criteria.md`.

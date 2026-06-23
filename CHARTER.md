@@ -88,7 +88,7 @@ Documentation teams spend significant time manually converting Word documents to
 ## Decision: Repo Location
 
 Using existing repo: **doc-intel-platform** (main branch)  
-New subdirectory: `/prototype/document-converter/`
+Prototype scripts live in `/prototype/`; Claude Code plugin files live in `/.claude/`.
 
 ---
 

@@ -313,7 +313,7 @@ grep -i placeholder output.dita
 
 **Automated checks (QA):**
 ```bash
-bash prototype/validation-script.sh output.dita
+bash prototype/validation-script.sh -f output.dita
 ```
 
 ---

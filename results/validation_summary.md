@@ -1,8 +1,17 @@
-# Validation summary template
+# Validation Summary
 
-When you run the demo stub (src/main.py) it will generate a real validation_summary.md here.
-This file is provided as a placeholder.
+Use this file to capture the latest formal PoC validation result.
 
-- Processed files: TBD
-- Total replacements: 0
+## Latest Run
 
+- Input file: TBD
+- Converted output: `sample-data/output/out.dita`
+- Rebranded output: `sample-data/output/out-rebranded.dita`
+- Validation command: `bash prototype/validation-script.sh -f sample-data/output/out-rebranded.dita`
+- Status: TBD
+
+## Notes
+
+- Record PASS, WARN, or FAIL after each formal run.
+- Link detailed evidence to `validation/test-results.md`.
+- Keep generated DITA outputs out of commits unless the team intentionally creates a baseline.

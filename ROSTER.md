@@ -55,8 +55,8 @@
 
 **What they own:**
 - `/sample-data/input/` — 2–3 Word documents (simple, complex, branded)
-- `/sample-data/expected-output/` — Hand-curated expected DITA-XML for each sample
-- `/docs/sample-metadata.md` — Metadata, complexity notes for each sample
+- `/sample-data/expected_output/` — Hand-curated expected DITA-XML for each sample
+- `/docs/sample-data-metadata.md` — Metadata, complexity notes for each sample
 - Coordinate with Domain Leads on output structure
 - **By Wed 24 June:** Samples locked and committed to repo
 

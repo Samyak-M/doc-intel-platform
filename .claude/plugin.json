@@ -1,0 +1,8 @@
+{
+  "name": "doc-intel-skills",
+  "version": "1.0.0",
+  "description": "Document Intelligence PoC — pipeline command for Word to DITA-XML conversion.",
+  "author": {
+    "name": "Document Intelligence Team"
+  }
+}

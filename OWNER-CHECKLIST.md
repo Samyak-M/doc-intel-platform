@@ -128,7 +128,7 @@ As owner, you are responsible for:
   2. Output: Rebranded DITA-XML created
   3. Check: "Are brand terms replaced?"
 - [ ] QA (Dinil) runs validation script:
-  1. Run: `bash prototype/validation-script.sh /tmp/output-rebranded.dita`
+  1. Run: `bash prototype/validation-script.sh -f /tmp/output-rebranded.dita`
   2. Output: Validation report (pass/fail)
 
 **Your action during demo:**
@@ -204,7 +204,7 @@ As owner, you are responsible for:
   - [ ] converter.py + rebranding-engine.py ready to run
   - [ ] validation-script.sh ready to run
   - [ ] sample-data/input/ with 2–3 Word docs
-  - [ ] sample-data/expected-output/ with hand-curated DITA outputs
+  - [ ] sample-data/expected_output/ with hand-curated DITA outputs
   - [ ] demo-narrative.md written (problem → approach → demo → learnings)
 
 **Your actions:**

@@ -176,7 +176,7 @@ Structure:
 
 ### Sample 001 Expected Output
 
-**Location:** `sample-data/expected-output/sample-001-expected.dita`
+**Location:** `sample-data/expected_output/sample-001-expected.dita`
 
 **Key metrics for QA validation:**
 ```
@@ -190,7 +190,7 @@ Structure:
 
 ### Sample 2 Expected Output
 
-**Location:** `sample-data/expected-output/gmail-guide-expected.dita`
+**Location:** `sample-data/expected_output/gmail-guide-expected.dita`
 
 **Key metrics for QA validation:**
 ```
@@ -234,7 +234,7 @@ Structure:
 ### Sample Handoff Checklist
 
 - [x] Both samples added to `/sample-data/input/`
-- [x] Expected outputs hand-curated in `/sample-data/expected-output/`
+- [x] Expected outputs hand-curated in `/sample-data/expected_output/`
 - [x] Metadata documented in this file
 - [x] Samples locked and not modified further
 - [x] QA lead has access to samples for testing
