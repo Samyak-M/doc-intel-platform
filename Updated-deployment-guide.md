@@ -152,9 +152,6 @@ Once you have successfully executed the end-to-end test and verified the outputs
 
 ```
 
-Your MD file is ready.
-[file-tag: code-generated-file-a0cd1bac-ce83-4490-b624-09255cc0b813]
-
 You can download the generated markdown file directly from the file tag above and place it in your repository. Let me know if you need any other modifications to the guide!
 
 ```
