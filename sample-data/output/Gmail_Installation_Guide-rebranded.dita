@@ -1,24 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
-<topic id="doc-8227ce9a">
+<topic id="doc-6d8bb130">
   <title>1. Overview</title>
   <body>
     <p>NewGmail</p>
     <p>Installation &amp; Setup Guide</p>
     <p>Technical Documentation | Version 1.0 | April 2026</p>
     <p>NewGmail is a free email service developed by Google. It is available as a web application and a mobile application for Android and iOS. This document provides step-by-step technical instructions for installing NewGmail across all major platforms — Android, iOS, Windows (desktop client), macOS, and web browsers.</p>
-    <section id="section-6990ef">
+    <section id="section-1ae8c9">
       <title>2.1 Android</title>
     </section>
-    <section id="section-55792c">
+    <section id="section-5cb775">
       <title>2.2 iOS (iPhone / iPad)</title>
     </section>
-    <section id="section-819a98">
+    <section id="section-26b3db">
       <title>2.3 Windows Desktop (via Web or PWA)</title>
     </section>
-    <section id="section-28a890">
+    <section id="section-c7b337">
       <title>2.4 macOS</title>
     </section>
-    <section id="section-7bdf41">
+    <section id="section-be00c4">
       <title>3.1 Via NewGoogle Play Store</title>
       <p>NewGmail comes pre-installed on most Android devices. If not present, follow these steps:</p>
       <p>Unlock your Android device and open the NewGoogle Play Store app.</p>
@@ -30,7 +30,7 @@
       <p>Sign in with your NewGoogle Account credentials (email and password). Tap "Next" to proceed.</p>
       <p>Follow the on-screen prompts to complete account setup and grant necessary permissions.</p>
     </section>
-    <section id="section-d58377">
+    <section id="section-dc7add">
       <title>3.2 Manual APK Installation (Advanced)</title>
       <p>For devices without NewGoogle Play Store access, NewGmail can be installed via APK:</p>
       <p>Download the NewGmail APK from a trusted source such as APKMirror.</p>
@@ -38,7 +38,7 @@
       <p>Locate the downloaded APK file using a file manager and tap it to install.</p>
       <p>Follow on-screen prompts to complete installation.</p>
     </section>
-    <section id="section-e713a4">
+    <section id="section-a4d9e5">
       <title>4.1 Via Apple App Store</title>
       <p>Open the App Store on your iPhone or iPad.</p>
       <p>Tap the Search icon (magnifying glass) at the bottom of the screen.</p>
@@ -49,7 +49,7 @@
       <p>Open NewGmail from your home screen. Sign in with your NewGoogle Account or create a new one.</p>
       <p>Grant requested permissions (Contacts, Notifications, Face ID) as needed.</p>
     </section>
-    <section id="section-e3a825">
+    <section id="section-2bbce5">
       <title>5.1 Accessing NewGmail via Web Browser</title>
       <p>NewGmail is fully functional in any modern web browser and does not require a dedicated desktop client.</p>
       <p>Open your preferred browser (Google Chrome, Microsoft Edge, or Firefox).</p>
@@ -57,17 +57,17 @@
       <p>Sign in with your NewGoogle Account email and password.</p>
       <p>NewGmail will load in your browser. Bookmark the page for quick access.</p>
     </section>
-    <section id="section-c5790b">
+    <section id="section-fabab0">
       <title>5.2 Installing NewGmail as a Progressive Web App (PWA) on Windows</title>
       <p>A PWA allows NewGmail to run as a standalone app outside the browser window:</p>
-      <section id="section-d6aa85">
+      <section id="section-b7801d">
         <title>Using Google Chrome:</title>
         <p>Open Google Chrome and navigate to https://mail.google.com.</p>
         <p>Sign in to your NewGoogle Account.</p>
         <p>Click the install icon (computer with a download arrow) in the address bar, or click the three-dot menu and select 'Install NewGmail'.</p>
         <p>Click "Install" in the confirmation dialog.</p>
         <p>NewGmail will open as a standalone window and a shortcut will be created on your Desktop and Start Menu.</p>
-        <section id="section-9510a4">
+        <section id="section-35e5c7">
           <title>Using Microsoft Edge:</title>
           <p>Open Microsoft Edge and go to https://mail.google.com.</p>
           <p>Sign in to your NewGoogle Account.</p>
@@ -77,13 +77,13 @@
         </section>
       </section>
     </section>
-    <section id="section-4521d0">
+    <section id="section-6c2711">
       <title>6.1 Accessing NewGmail via Safari or Chrome</title>
       <p>Open Safari, Google Chrome, or Firefox on your Mac.</p>
       <p>Navigate to https://mail.google.com.</p>
       <p>Sign in with your NewGoogle Account credentials.</p>
     </section>
-    <section id="section-bc5e91">
+    <section id="section-bed892">
       <title>6.2 Installing NewGmail as a PWA on macOS (Chrome)</title>
       <p>Open Google Chrome and visit https://mail.google.com.</p>
       <p>Sign in to your NewGoogle Account.</p>
@@ -91,7 +91,7 @@
       <p>Click 'Install' to confirm. NewGmail will open as a standalone macOS application.</p>
       <p>A NewGmail icon will appear in your Dock and Applications folder for easy access.</p>
     </section>
-    <section id="section-d06e17">
+    <section id="section-945775">
       <title>6.3 Configuring NewGmail in Apple Mail (Optional)</title>
       <p>You can also add NewGmail to the native Apple Mail application as an alternative:</p>
       <p>Open System Settings &gt; Internet Accounts.</p>
@@ -100,32 +100,32 @@
       <p>Enter your NewGoogle Account password and complete two-factor authentication if prompted.</p>
       <p>Toggle 'Mail' to ON to sync NewGmail with the Apple Mail app.</p>
     </section>
-    <section id="section-f53f71">
+    <section id="section-1b9ddb">
       <title>7.1 Account Setup</title>
       <p>Add a profile picture via your NewGoogle Account settings.</p>
       <p>Set up a signature: Open NewGmail &gt; Settings (gear icon) &gt; See all settings &gt; General &gt; Signature.</p>
       <p>Configure vacation responder: Settings &gt; General &gt; Vacation responder.</p>
     </section>
-    <section id="section-6eddf9">
+    <section id="section-ea54e4">
       <title>7.2 Enable Two-Factor Authentication (Recommended)</title>
       <p>Go to https://myaccount.newgoogle.com/security.</p>
       <p>Under "How you sign in to Google", select 2-Step Verification.</p>
       <p>Click Get started and follow the instructions to set up a verification method (authenticator app, SMS, or security key).</p>
     </section>
-    <section id="section-f41a09">
+    <section id="section-f52d75">
       <title>7.3 Managing Notifications</title>
       <p>Android / iOS: Go to device Settings &gt; Notifications &gt; NewGmail. Toggle notification types on or off.</p>
       <p>Desktop PWA: NewGmail Settings &gt; See all settings &gt; General &gt; Desktop Notifications. Grant browser permission when prompted.</p>
     </section>
-    <section id="section-74b7c4">
+    <section id="section-f163d5">
       <title>9.1 Android</title>
       <p>Go to Settings &gt; Apps &gt; NewGmail &gt; Uninstall. Note: On some devices, NewGmail may be a system app and only allow 'Disable'.</p>
     </section>
-    <section id="section-387e02">
+    <section id="section-46df90">
       <title>9.2 iOS</title>
       <p>Long-press the NewGmail app icon &gt; Tap 'Remove App' &gt; Tap 'Delete App' to confirm.</p>
     </section>
-    <section id="section-d3daac">
+    <section id="section-129802">
       <title>9.3 Windows / macOS PWA</title>
       <p>Open the NewGmail PWA window &gt; Click the three-dot menu &gt; Uninstall / Remove from Chrome.</p>
       <p>Alternatively, locate NewGmail in your Applications (macOS) or Start Menu (Windows) and delete the shortcut.</p>
