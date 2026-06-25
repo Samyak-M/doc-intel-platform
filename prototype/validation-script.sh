@@ -276,9 +276,15 @@ main() {
                 exit 0
                 ;;
             *)
-                echo "Unknown option: $1"
-                show_usage
-                exit 1
+                # Support positional argument (first non-flag argument is the file)
+                if [[ -z "$DITA_FILE" ]]; then
+                    DITA_FILE="$1"
+                    shift
+                else
+                    echo "Unknown option: $1"
+                    show_usage
+                    exit 1
+                fi
                 ;;
         esac
     done

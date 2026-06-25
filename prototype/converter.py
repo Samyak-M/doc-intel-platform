@@ -225,7 +225,7 @@ class DitaConverter:
         dita_header = '''<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 '''
-        final_xml = dita_header + pretty_xml.split('\n', 2)[2]  # Remove XML declaration from pretty print
+        final_xml = dita_header + '\n' + pretty_xml.split('\n', 1)[1]  # Remove XML declaration, preserve topic root
         
         # Ensure output directory exists
         output_path = Path(output_file)

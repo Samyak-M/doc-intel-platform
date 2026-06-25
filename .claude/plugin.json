@@ -1,8 +1,6 @@
 {
-  "name": "doc-intel-skills",
+  "name": "doc-intel-platform",
   "version": "1.0.0",
-  "description": "Document Intelligence PoC — pipeline command for Word to DITA-XML conversion.",
-  "author": {
-    "name": "Document Intelligence Team"
-  }
+  "description": "Document Intelligence Platform pipeline: converts Word documents to DITA format, applies custom rebranding rules, and validates output against quality criteria. Dynamically preserves input filenames in output.",
+  "author": "Document Intelligence Team"
 }
