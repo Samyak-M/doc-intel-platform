@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document Intelligence Platform — Self-Guided POC Demo</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #111935;
+      --panel-soft: #1a2550;
+      --text: #e8edff;
+      --muted: #9db0e8;
+      --brand: #4f8cff;
+      --brand-2: #7a5cff;
+      --ok: #2ecc71;
+      --warn: #f39c12;
+      --danger: #ff5d6c;
+      --line: #2a376b;
+      --shadow: 0 8px 24px rgba(0,0,0,.28);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% -10%, #1d2a59 0%, var(--bg) 45%);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(11,16,32,.75);
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      letter-spacing: .2px;
+    }
+
+    .title p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(79,140,255,.08);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: .8rem;
+      white-space: nowrap;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 1.6fr 1.4fr 1fr;
+      gap: 14px;
+      padding: 14px;
+      height: calc(100vh - 88px);
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.005));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .panel h2 {
+      margin: 0;
+      padding: 14px 16px;
+      font-size: .96rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.01);
+      letter-spacing: .2px;
+    }
+
+    .progress-wrap {
+      padding: 10px 16px 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(79,140,255,.04);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: .8rem;
+      margin-bottom: 8px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 8px;
+      background: #0d1430;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0%;
+      transition: width .35s ease;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+
+    .steps {
+      padding: 10px;
+      overflow: auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 10px;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+
+    .step.active {
+      border-color: var(--brand);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(79,140,255,.15) inset;
+    }
+
+    .step.completed {
+      border-color: rgba(46,204,113,.55);
+      background: linear-gradient(180deg, rgba(46,204,113,.06), rgba(46,204,113,.02));
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 6px;
+    }
+
+    .step h3 {
+      margin: 0;
+      font-size: .92rem;
+    }
+
+    .step small {
+      color: var(--muted);
+      display: block;
+      margin-top: 3px;
+      line-height: 1.35;
+      font-size: .79rem;
+    }
+
+    .status {
+      font-size: .72rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .status.ready { color: #b8c7f5; }
+    .status.running { color: var(--warn); border-color: rgba(243,156,18,.6); }
+    .status.done { color: var(--ok); border-color: rgba(46,204,113,.6); }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #111a3b;
+      color: var(--text);
+      padding: 8px 10px;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    button:hover:not(:disabled) { transform: translateY(-1px); border-color: #4964c2; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    .btn-ghost { background: transparent; }
+
+    .center-content {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 0;
+    }
+
+    .console-toolbar {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.01);
+    }
+
+    .legend {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      transform: translateY(1px);
+    }
+
+    .console {
+      margin: 0;
+      padding: 12px;
+      list-style: none;
+      overflow: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .78rem;
+      line-height: 1.55;
+      background: #090f22;
+    }
+
+    .line {
+      border-bottom: 1px dashed rgba(255,255,255,.06);
+      padding: 4px 0;
+      word-break: break-word;
+    }
+
+    .time { color: #8295cc; margin-right: 8px; }
+    .lvl-info { color: #c9d4ff; }
+    .lvl-ok { color: #8af0b4; }
+    .lvl-warn { color: #ffd27d; }
+
+    .faq {
+      padding: 10px;
+      overflow: auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-soft);
+      overflow: hidden;
+    }
+
+    .faq-card h4 {
+      margin: 0;
+      padding: 10px 11px;
+      font-size: .84rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+
+    .faq-card p {
+      margin: 0;
+      padding: 10px 11px;
+      color: #d7e0ff;
+      font-size: .8rem;
+      line-height: 1.45;
+    }
+
+    .footer-note {
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .73rem;
+      background: rgba(255,255,255,.01);
+    }
+
+    @media (max-width: 1180px) {
+      .main { grid-template-columns: 1fr; height: auto; }
+      .panel { min-height: 320px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-row">
+      <div class="title">
+        <h1>Document Intelligence Platform — Self-Guided POC Tour</h1>
+        <p>Leadership Demo | Converter & Rebranding Workflow</p>
+      </div>
+      <div class="chip">No setup required • Single-file interactive walkthrough</div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="panel">
+      <h2>Guided Demo Steps</h2>
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>Completion Progress</span>
+          <span id="progressText">0 / 5 complete</span>
+        </div>
+        <div class="progress"><div id="progressBar"></div></div>
+      </div>
+      <div class="steps" id="stepsContainer"></div>
+      <div class="footer-note">Tip: Start with Step 1. Each step unlocks after the previous step finishes to ensure a foolproof flow.</div>
+    </section>
+
+    <section class="panel center-content">
+      <h2>Real-Time Under-the-Hood Activity</h2>
+      <div class="console-toolbar">
+        <div class="legend">
+          <span><i class="dot" style="background:#c9d4ff"></i>Info</span>
+          <span><i class="dot" style="background:#8af0b4"></i>Success</span>
+          <span><i class="dot" style="background:#ffd27d"></i>Action</span>
+        </div>
+        <button id="clearLog" class="btn-ghost">Clear Log</button>
+      </div>
+      <ul id="log" class="console"></ul>
+      <div class="footer-note">This simulated console mirrors the execution sequence your live POC would perform in the actual platform.</div>
+    </section>
+
+    <aside class="panel">
+      <h2>Contextual FAQ (Auto-Updating)</h2>
+      <div id="faqContainer" class="faq"></div>
+      <div class="footer-note" id="faqHint">FAQs update automatically based on the active step.</div>
+    </aside>
+  </main>
+
+  <script>
+    const demoSteps = [
+      {
+        id: 1,
+        title: "Select Source Document Batch",
+        subtitle: "Leadership selects a sample input package to begin the conversion pipeline.",
+        selectLog: [
+          "Enumerating available source documents...",
+          "Validating document formats (PDF/DOCX/TIFF)...",
+          "Batch 'Q2-Invoices-Sample' selected (42 files)."
+        ],
+        runLog: [
+          "Starting ingestion worker pool...",
+          "Reading metadata and indexing pages...",
+          "Input integrity checks passed with 0 critical errors."
+        ],
+        faqs: [
+          {
+            q: "Do we need technical setup before this step?",
+            a: "No. In production this can be triggered from a simple UI action; no command-line interaction is required for business users."
+          },
+          {
+            q: "What if documents are mixed quality?",
+            a: "The pipeline performs pre-validation and flags low-quality scans for confidence-aware downstream handling."
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Run Document Conversion",
+        subtitle: "The converter transforms source files into normalized machine-readable outputs.",
+        selectLog: [
+          "Selecting conversion profile: 'enterprise-default-v2'...",
+          "Applying language and template heuristics...",
+          "OCR fallback mode armed for scanned pages."
+        ],
+        runLog: [
+          "Executing conversion engine...",
+          "Normalizing extracted text, tables, and key-value blocks...",
+          "Conversion completed: 42/42 docs processed successfully."
+        ],
+        faqs: [
+          {
+            q: "How is this different from basic OCR?",
+            a: "This flow combines OCR with structural normalization, producing consistent, downstream-ready outputs rather than raw text blobs."
+          },
+          {
+            q: "Can this support multiple document layouts?",
+            a: "Yes. The conversion profile supports template-aware and template-agnostic extraction paths for varied formats."
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Apply Rebranding Rules",
+        subtitle: "Business-approved branding and formatting policies are applied to generated artifacts.",
+        selectLog: [
+          "Loading brand package: 'Corporate-2026-Primary'...",
+          "Fetching typography, color, and watermark directives...",
+          "Policy set verified against governance rules."
+        ],
+        runLog: [
+          "Applying rebranding overlays...",
+          "Replacing legacy logos and normalizing visual tokens...",
+          "Brand compliance score: 98.7% (threshold: 95%)."
+        ],
+        faqs: [
+          {
+            q: "Can marketing update branding without engineering?",
+            a: "Yes. Branding policies are externalized so approved business owners can update assets and rules without code deployments."
+          },
+          {
+            q: "How is brand drift prevented over time?",
+            a: "Governance checks validate each run against active policy packs and surface non-compliant outputs automatically."
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Quality Review & Validation",
+        subtitle: "Automated checks verify extraction quality, branding accuracy, and output readiness.",
+        selectLog: [
+          "Selecting QA policy: 'leadership-demo-gate'...",
+          "Preparing validation benchmarks and thresholds...",
+          "Risk scoring model initialized."
+        ],
+        runLog: [
+          "Running confidence and consistency checks...",
+          "Comparing outputs against expected schema and policy...",
+          "Validation passed with 3 low-risk warnings and 0 blockers."
+        ],
+        faqs: [
+          {
+            q: "What happens if validation fails?",
+            a: "The process can auto-route failed items to exception queues for targeted review while allowing healthy documents to continue."
+          },
+          {
+            q: "Is there an audit trail for compliance teams?",
+            a: "Yes. Each run can emit traceable logs, policy versions, and validation outcomes for audit and governance reporting."
+          }
+        ]
+      },
+      {
+        id: 5,
+        title: "Publish Executive Summary",
+        subtitle: "A concise business-facing summary highlights throughput, quality, and operational value.",
+        selectLog: [
+          "Selecting KPI dashboard template...",
+          "Compiling throughput, accuracy, and turnaround metrics...",
+          "Preparing narrative summary for leadership."
+        ],
+        runLog: [
+          "Publishing POC outcome summary...",
+          "Generating 'before vs after' efficiency snapshot...",
+          "Demo complete: leadership package ready for review."
+        ],
+        faqs: [
+          {
+            q: "Which outcomes should leadership focus on?",
+            a: "Primary signals are cycle-time reduction, extraction consistency, compliance pass rate, and scalability readiness."
+          },
+          {
+            q: "Can this be expanded beyond the POC?",
+            a: "Yes. The same architecture can scale by adding source connectors, policy packs, and domain-specific extraction modules."
+          }
+        ]
+      }
+    ];
+
+    const state = {
+      activeStep: 1,
+      selected: new Set(),
+      completed: new Set(),
+      running: null
+    };
+
+    const stepsContainer = document.getElementById('stepsContainer');
+    const logEl = document.getElementById('log');
+    const faqContainer = document.getElementById('faqContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+
+    function now() {
+      return new Date().toLocaleTimeString([], { hour12: false });
+    }
+
+    function addLog(text, level = 'info') {
+      const li = document.createElement('li');
+      li.className = 'line';
+      const lvlClass = level === 'ok' ? 'lvl-ok' : level === 'warn' ? 'lvl-warn' : 'lvl-info';
+      li.innerHTML = `<span class="time">[${now()}]</span><span class="${lvlClass}">${text}</span>`;
+      logEl.appendChild(li);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function stepStatus(stepId) {
+      if (state.completed.has(stepId)) return 'done';
+      if (state.running === stepId) return 'running';
+      return 'ready';
+    }
+
+    function isUnlocked(stepId) {
+      return stepId === 1 || state.completed.has(stepId - 1);
+    }
+
+    function updateProgress() {
+      const total = demoSteps.length;
+      const complete = state.completed.size;
+      const pct = Math.round((complete / total) * 100);
+      progressBar.style.width = `${pct}%`;
+      progressText.textContent = `${complete} / ${total} complete`;
+    }
+
+    function renderFAQ() {
+      const step = demoSteps.find(s => s.id === state.activeStep);
+      faqContainer.innerHTML = '';
+      step.faqs.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'faq-card';
+        card.innerHTML = `<h4>${item.q}</h4><p>${item.a}</p>`;
+        faqContainer.appendChild(card);
+      });
+      document.getElementById('faqHint').textContent = `Showing FAQs for Step ${step.id}: ${step.title}`;
+    }
+
+    function renderSteps() {
+      stepsContainer.innerHTML = '';
+
+      demoSteps.forEach(step => {
+        const active = step.id === state.activeStep;
+        const completed = state.completed.has(step.id);
+        const unlocked = isUnlocked(step.id);
+        const selected = state.selected.has(step.id);
+        const running = state.running === step.id;
+
+        const card = document.createElement('article');
+        card.className = `step ${active ? 'active' : ''} ${completed ? 'completed' : ''}`;
+
+        const status = stepStatus(step.id);
+        const statusText = status === 'done' ? 'Completed' : status === 'running' ? 'Running' : unlocked ? 'Ready' : 'Locked';
+
+        card.innerHTML = `
+          <div class="step-header">
+            <div>
+              <h3>Step ${step.id}: ${step.title}</h3>
+              <small>${step.subtitle}</small>
+            </div>
+            <span class="status ${status}">${statusText}</span>
+          </div>
+          <div class="btn-row">
+            <button ${!unlocked || running ? 'disabled' : ''} data-action="select" data-step="${step.id}">
+              ${selected ? 'Selected ✓' : 'Select'}
+            </button>
+            <button class="btn-primary" ${!unlocked || !selected || running || completed ? 'disabled' : ''} data-action="run" data-step="${step.id}">
+              ${running ? 'Running...' : completed ? 'Run Complete' : 'Run'}
+            </button>
+            <button class="btn-ghost" data-action="focus" data-step="${step.id}">View FAQ</button>
+          </div>
+        `;
+
+        stepsContainer.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    async function runStep(stepId) {
+      const step = demoSteps.find(s => s.id === stepId);
+      if (!step || !isUnlocked(stepId) || !state.selected.has(stepId) || state.completed.has(stepId)) return;
+
+      state.running = stepId;
+      renderSteps();
+
+      addLog(`▶ Running Step ${step.id}: ${step.title}`, 'warn');
+      for (const line of step.runLog) {
+        await wait(650);
+        addLog(line, 'info');
+      }
+
+      await wait(350);
+      state.running = null;
+      state.completed.add(stepId);
+      addLog(`✔ Step ${step.id} completed successfully.`, 'ok');
+
+      if (stepId < demoSteps.length) {
+        state.activeStep = stepId + 1;
+        addLog(`Next recommended action: Select Step ${stepId + 1}.`, 'warn');
+      } else {
+        addLog('🏁 End-to-end POC walkthrough finished. Leadership summary is now available.', 'ok');
+      }
+
+      renderSteps();
+      renderFAQ();
+    }
+
+    function selectStep(stepId) {
+      const step = demoSteps.find(s => s.id === stepId);
+      if (!step || !isUnlocked(stepId)) return;
+
+      state.activeStep = stepId;
+      state.selected.add(stepId);
+      addLog(`Step ${step.id} selected. Preparing action context...`, 'warn');
+      step.selectLog.forEach((line, i) => {
+        setTimeout(() => addLog(line, 'info'), i * 260);
+      });
+
+      renderSteps();
+      renderFAQ();
+    }
+
+    stepsContainer.addEventListener('click', (e) => {
+      const button = e.target.closest('button');
+      if (!button) return;
+
+      const stepId = Number(button.dataset.step);
+      const action = button.dataset.action;
+
+      if (action === 'select') selectStep(stepId);
+      if (action === 'run') runStep(stepId);
+      if (action === 'focus') {
+        state.activeStep = stepId;
+        renderSteps();
+        renderFAQ();
+      }
+    });
+
+    document.getElementById('clearLog').addEventListener('click', () => {
+      logEl.innerHTML = '';
+      addLog('Console cleared. Demo state remains unchanged.', 'warn');
+    });
+
+    // Init
+    renderSteps();
+    renderFAQ();
+    addLog('Welcome. Start by clicking "Select" on Step 1.', 'ok');
+  </script>
+</body>
+</html>
